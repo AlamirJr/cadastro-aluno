@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Alunos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            color: #333;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .student-list {
+            list-style: none;
+            padding: 0;
+        }
+        .student {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            border-left: 5px solid #4CAF50;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Cadastro de Alunos</h1>
+
+        <input type="text" id="studentName" placeholder="Nome do aluno" />
+        <input type="number" id="studentId" placeholder="Matrícula" />
+        <input type="text" id="studentCourse" placeholder="Curso" />
+        <button onclick="addStudent()">Cadastrar Aluno</button>
+
+        <h2>Lista de Alunos Cadastrados</h2>
+        <ul id="studentList" class="student-list"></ul>
+    </div>
+
+    <script>
+        let students = [];
+
+        function addStudent() {
+            const name = document.getElementById('studentName').value.trim();
+            const id = document.getElementById('studentId').value.trim();
+            const course = document.getElementById('studentCourse').value.trim();
+
+            if (name && id && course) {
+                students.push({ name, id, course });
+                document.getElementById('studentName').value = '';
+                document.getElementById('studentId').value = '';
+                document.getElementById('studentCourse').value = '';
+                renderStudents();
+            } else {
+                alert('Por favor, preencha todos os campos.');
+            }
+        }
+
+        function renderStudents() {
+            const studentList = document.getElementById('studentList');
+            studentList.innerHTML = '';
+
+            students.forEach(student => {
+                const studentElement = document.createElement('li');
+                studentElement.classList.add('student');
+                studentElement.innerHTML = `
+                    <span>${student.name} - ${student.id} - ${student.course}</span>
+                `;
+                studentList.appendChild(studentElement);
+            });
+        }
+    </script>
+
+</body>
+</html>
